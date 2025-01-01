@@ -6,6 +6,8 @@ using LobbyCompatibility.Attributes;
 using LobbyCompatibility.Enums;
 using System.IO;
 using System.Reflection;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MellanaAndCo;
 
@@ -29,26 +31,41 @@ public class MellanaAndCo : BaseUnityPlugin
 
         PlushieAssets = AssetBundle.LoadFromFile(Path.Combine(sAssemblyLocation, "plushies"));
 
-        string[] Regulars = ["luna/PlushieLuna", "gerbert/PlushieGerbert", "lana/PlushieLana", "mellana/PlushieMellana", "dude/PlushieDude", "wilbo/PlushieWilbo", "wilbo/PlushieWilmoon"];
-
-        const string BasePath = "Assets/Plushies/";
+        const string BasePath = "Assets/Plushies";
         const string FileExt = ".asset";
-        int iRarity = 15;
+        
+        var categories = new List<(string category, int rarity)>
+        {
+            ("Regulars", 45)
+        };
 
-        for (int i = 0; i < Regulars.Length; i++) {
-            string Path = BasePath + Regulars[i] + FileExt;
-            Item? Plushie = PlushieAssets.LoadAsset<Item>(Path);
-            if (Plushie == null) {
-                Logger.LogError("Failed to find plushie " + Path);
-                continue;
+        string[] files = PlushieAssets.GetAllAssetNames();
+        foreach (var (category, rarity) in categories) {
+            string[] Evaluated = [];
+            foreach (string path in files) {
+                if (!path.Contains(FileExt)) {
+                    Evaluated.AddItem(path);
+                    Logger.LogDebug("Culled " + path);
+                    continue;
+                }
+                if (!path.Contains(BasePath + "/" + category, System.StringComparison.CurrentCultureIgnoreCase)) {
+                    Logger.LogDebug("Skipped " + path);
+                    continue;
+                }
+                Evaluated.AddItem(path);
+
+                Item? Plushie = PlushieAssets.LoadAsset<Item>(path);
+                if (Plushie == null) {
+                    Logger.LogError("Failed to load plushie " + path);
+                    continue;
+                }
+                LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(Plushie.spawnPrefab);
+                LethalLib.Modules.Items.RegisterScrap(Plushie, rarity, LethalLib.Modules.Levels.LevelTypes.All);
+                Logger.LogMessage("Loaded asset \"" + path + "\"");
             }
-            LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(Plushie.spawnPrefab);
-            LethalLib.Modules.Items.RegisterScrap(Plushie, iRarity, LethalLib.Modules.Levels.LevelTypes.All);
+            // Remove files that have been evaluated
+            files = files.Except(Evaluated).ToArray();
         }
-
-        // int iPrice = 0;
-        // TerminalNode iTerminalNode = PlushieAssets.LoadAsset<TerminalNode>("Assets/Plushies/PlushieLuna.asset");
-        // LethalLib.Modules.Items.RegisterShopItem(PlushieLuna, null, null, iTerminalNode, iPrice);
 
         Patch();
 
