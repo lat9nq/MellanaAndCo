@@ -1,6 +1,6 @@
 using HarmonyLib;
 
-namespace MellanaAndFriends.Patches;
+namespace MellanaAndCo.Patches;
 
 [HarmonyPatch(typeof(TVScript))]
 public class ExampleTVPatch

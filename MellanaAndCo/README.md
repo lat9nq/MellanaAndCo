@@ -10,8 +10,8 @@ To increment it, you can either modify the version tag in the `.csproj` file dir
 ```xml
 <!-- BepInEx Properties -->
 <PropertyGroup>
-    <AssemblyName>toast2903.MellanaAndFriends</AssemblyName>
-    <Product>MellanaAndFriends</Product>
+    <AssemblyName>toastUnlimited.MellanaAndCo</AssemblyName>
+    <Product>MellanaAndCo</Product>
     <!-- Change to whatever version you're currently on. -->
     <Version>1.0.0</Version>
 </PropertyGroup>
@@ -67,7 +67,7 @@ in `TVScript`:
 ```csharp
 using HarmonyLib;
 
-namespace MellanaAndFriends.Patches;
+namespace MellanaAndCo.Patches;
 
 [HarmonyPatch(typeof(TVScript))]
 public class ExampleTVPatch

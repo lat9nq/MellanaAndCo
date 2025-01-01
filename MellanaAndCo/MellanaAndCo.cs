@@ -7,15 +7,15 @@ using LobbyCompatibility.Enums;
 using System.IO;
 using System.Reflection;
 
-namespace MellanaAndFriends;
+namespace MellanaAndCo;
 
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 [BepInDependency("BMX.LobbyCompatibility", BepInDependency.DependencyFlags.HardDependency)]
 [BepInDependency(LethalLib.Plugin.ModGUID)]
 [LobbyCompatibility(CompatibilityLevel.ClientOnly, VersionStrictness.None)]
-public class MellanaAndFriends : BaseUnityPlugin
+public class MellanaAndCo : BaseUnityPlugin
 {
-    public static MellanaAndFriends Instance { get; private set; } = null!;
+    public static MellanaAndCo Instance { get; private set; } = null!;
     internal new static ManualLogSource Logger { get; private set; } = null!;
     internal static Harmony? Harmony { get; set; }
     public static AssetBundle PlushieAssets;
