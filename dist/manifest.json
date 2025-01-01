@@ -1,9 +1,10 @@
 {
     "name": "SillyGiftForMellana",
-    "version_number": "1.0.0",
+    "version_number": "1.0.1",
     "website_url": "https://github.com/lat9nq/MellanaAndCo",
     "description": "See the project website for a description",
     "dependencies": [
+        "BepInEx-BepInExPack-5.4.2100",
         "Evaisa-LethalLib-0.16.2"
     ]
 }
