@@ -2,8 +2,6 @@ using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using UnityEngine;
-using LobbyCompatibility.Attributes;
-using LobbyCompatibility.Enums;
 using System.IO;
 using System.Reflection;
 using System.Collections.Generic;
@@ -12,9 +10,7 @@ using System.Linq;
 namespace MellanaAndCo;
 
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
-[BepInDependency("BMX.LobbyCompatibility", BepInDependency.DependencyFlags.HardDependency)]
 [BepInDependency(LethalLib.Plugin.ModGUID)]
-[LobbyCompatibility(CompatibilityLevel.ClientOnly, VersionStrictness.None)]
 public class MellanaAndCo : BaseUnityPlugin
 {
     public static MellanaAndCo Instance { get; private set; } = null!;
