@@ -63,28 +63,6 @@ public class MellanaAndCo : BaseUnityPlugin
             files = files.Except(Evaluated).ToArray();
         }
 
-        Patch();
-
         Logger.LogInfo($"{MyPluginInfo.PLUGIN_GUID} v{MyPluginInfo.PLUGIN_VERSION} has loaded!");
-    }
-
-    internal static void Patch()
-    {
-        Harmony ??= new Harmony(MyPluginInfo.PLUGIN_GUID);
-
-        Logger.LogDebug("Patching...");
-
-        Harmony.PatchAll();
-
-        Logger.LogDebug("Finished patching!");
-    }
-
-    internal static void Unpatch()
-    {
-        Logger.LogDebug("Unpatching...");
-
-        Harmony?.UnpatchSelf();
-
-        Logger.LogDebug("Finished unpatching!");
     }
 }
