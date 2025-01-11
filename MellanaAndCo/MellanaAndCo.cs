@@ -32,7 +32,8 @@ public class MellanaAndCo : BaseUnityPlugin
         
         var categories = new List<(string category, int rarity)>
         {
-            ("Regulars", 45)
+            ("Regulars", 45),
+            ("Test", 0)
         };
 
         string[] files = PlushieAssets.GetAllAssetNames();
