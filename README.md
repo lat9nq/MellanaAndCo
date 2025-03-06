@@ -28,6 +28,8 @@ The following are drop downs. Open them if you don't care for more spoilers. In 
 - [DUDE](https://www.twitch.tv/thatsrb2dude)
 - [Wilbo](https://www.twitch.tv/Wilbos_World)
   - Wilmoon
+- [Sora](https://www.twitch.tv/plutootie)
+  - Frog Cat
 </details>
 
 ## Credits
@@ -36,5 +38,6 @@ I want to thank:
 - [Viridescene](https://www.twitch.tv/viridescence) for their help reviewing the 1.0 plushies!
 - Hoffer for general modding advice and helping make this mod a surprise!
   - Both of you need to give me better links to credit you all with LOL.
+- [pandanflavor](https://linktr.ee/pandanflavor) for advice with Sora's design.
 - [lethal.wiki](https://lethal.wiki) for guidance on making a custom scrap mod.
 - [Lethal Company Project Patcher](https://github.com/nomnomab/unity-lc-project-patcher) for putting together the Unity project.
