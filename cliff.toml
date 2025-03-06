@@ -46,7 +46,7 @@ postprocessors = [
 # parse the commits based on https://www.conventionalcommits.org
 conventional_commits = true
 # filter out the commits that are not conventional
-filter_unconventional = true
+filter_unconventional = false
 # process each line of a commit as an individual commit
 split_commits = false
 # regex for preprocessing the commit messages
@@ -78,6 +78,6 @@ commit_parsers = [
 # filter out the commits that are not matched by commit parsers
 filter_commits = false
 # sort the tags topologically
-topo_order = false
+topo_order = true
 # sort the commits inside sections by oldest/newest order
 sort_commits = "oldest"
