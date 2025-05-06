@@ -1,0 +1,11 @@
+{
+    "name": "MellanaAndCoExtras",
+    "version_number": "1.2.0",
+    "website_url": "https://github.com/lat9nq/MellanaAndCo",
+    "description": "Extra tid bits that don't belong in the base mod",
+    "dependencies": [
+        "BepInEx-BepInExPack-5.4.2100",
+        "Evaisa-LethalLib-0.16.2",
+        "toastUnlimited-SillyGiftForMellana-1.2.0"
+    ]
+}
