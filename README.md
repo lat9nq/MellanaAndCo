@@ -30,6 +30,7 @@ The following are drop downs. Open them if you don't care for more spoilers. In 
   - Wilmoon
 - [Sora](https://www.twitch.tv/plutootie)
   - Frog Cat
+- [Vishsh](https://www.twitch.tv/vishsh)
 </details>
 
 ## Credits
