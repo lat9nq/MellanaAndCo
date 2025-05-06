@@ -16,27 +16,26 @@ public class MellanaAndCo : BaseUnityPlugin
     public static MellanaAndCo Instance { get; private set; } = null!;
     internal new static ManualLogSource Logger { get; private set; } = null!;
     internal static Harmony? Harmony { get; set; }
-    public static AssetBundle PlushieAssets;
 
-    private void Awake()
-    {
-        Logger = base.Logger;
-        Instance = this;
+    readonly List<(string, int)> categories =
+    [
+        ("Regulars", 45),
+        ("Extra", 40),
+        ("Test", 0)
+    ];
 
-        string sAssemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+    private void LoadBundle(string sBundlePath) {
+        AssetBundle? Bundle = AssetBundle.LoadFromFile(sBundlePath);
 
-        PlushieAssets = AssetBundle.LoadFromFile(Path.Combine(sAssemblyLocation, "plushies"));
+        if (Bundle == null) {
+            Logger.LogInfo("Failed to load bundle \"" + Path.GetFileName(sBundlePath) + "\", skipping" );
+            return;
+        }
 
-        const string BasePath = "Assets/Plushies";
+        const string BasePath = "Assets/MellanaAndCo";
         const string FileExt = ".asset";
-        
-        var categories = new List<(string category, int rarity)>
-        {
-            ("Regulars", 45),
-            ("Test", 0)
-        };
 
-        string[] files = PlushieAssets.GetAllAssetNames();
+        string[] files = Bundle.GetAllAssetNames();
         foreach (var (category, rarity) in categories) {
             string[] Evaluated = [];
             foreach (string path in files) {
@@ -51,18 +50,33 @@ public class MellanaAndCo : BaseUnityPlugin
                 }
                 Evaluated.AddItem(path);
 
-                Item? Plushie = PlushieAssets.LoadAsset<Item>(path);
+                Item? Plushie = Bundle.LoadAsset<Item>(path);
                 if (Plushie == null) {
                     Logger.LogError("Failed to load plushie " + path);
                     continue;
                 }
                 LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(Plushie.spawnPrefab);
                 LethalLib.Modules.Items.RegisterScrap(Plushie, rarity, LethalLib.Modules.Levels.LevelTypes.All);
-                Logger.LogMessage("Loaded asset \"" + path + "\"");
+                Logger.LogInfo("Loaded asset \"" + path + "\"");
             }
             // Remove files that have been evaluated
             files = files.Except(Evaluated).ToArray();
         }
+    }
+
+    private void Awake()
+    {
+        Logger = base.Logger;
+        Instance = this;
+
+        // Load included asset bundle
+        string sAssemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        string sBundlePath = Path.Combine(sAssemblyLocation, "mellanaandco");
+        LoadBundle(sBundlePath);
+
+        // Load optional extras bundle
+        string sExtraBundlePath = Path.GetFullPath("../toastUnlimited-MellanaAndCoExtras/mellanaandco_extras", sAssemblyLocation);
+        LoadBundle(sExtraBundlePath);
 
         Logger.LogInfo($"{MyPluginInfo.PLUGIN_GUID} v{MyPluginInfo.PLUGIN_VERSION} has loaded!");
     }
